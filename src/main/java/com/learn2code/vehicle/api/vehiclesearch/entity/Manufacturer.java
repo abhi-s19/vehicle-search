@@ -7,15 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "manufacturer")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Manufacturer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +18,25 @@ public class Manufacturer {
 	private String manufacturerName;
 	@Column(name = "country_of_origin")
 	private String countryOfOrigin;
+	public String getManufacturerName() {
+		return manufacturerName;
+	}
+	public void setManufacturerName(String manufacturerName) {
+		this.manufacturerName = manufacturerName;
+	}
+	public String getCountryOfOrigin() {
+		return countryOfOrigin;
+	}
+	public void setCountryOfOrigin(String countryOfOrigin) {
+		this.countryOfOrigin = countryOfOrigin;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 
 }

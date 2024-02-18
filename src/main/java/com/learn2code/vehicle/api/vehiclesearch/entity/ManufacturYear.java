@@ -7,15 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "manufactur_year")
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 public class ManufacturYear {
 	
 	@Id
@@ -24,4 +17,17 @@ public class ManufacturYear {
 	private int id;
 	@Column(name = "year")
 	private int year;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	
 }
