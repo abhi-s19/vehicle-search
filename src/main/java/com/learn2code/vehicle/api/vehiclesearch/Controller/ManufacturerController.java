@@ -1,8 +1,11 @@
 package com.learn2code.vehicle.api.vehiclesearch.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,14 @@ public class ManufacturerController {
 		
 		Manufacturer dbRecord = manufacturerService.saveManufacturer(manufacturer);
 		return new ResponseEntity<>(dbRecord,HttpStatus.CREATED);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Manufacturer>> getAllManufacturers(){
+		List<Manufacturer> saveManufacturers = manufacturerService.fetchAllManufacturers();
+		return new ResponseEntity<>(saveManufacturers,HttpStatus.OK);
+		//another way to return
+		//return ResponseEntity.status(HttpStatus.OK).body(saveManufacturers);
 	}
 
 }
