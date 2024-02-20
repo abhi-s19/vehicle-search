@@ -9,5 +9,5 @@ public interface ManufacturerService {
 	
 	Manufacturer saveManufacturer(Manufacturer manufacturer);
 	List<Manufacturer> fetchAllManufacturers();
-
+	Manufacturer getManufacturerById(int id);
 }

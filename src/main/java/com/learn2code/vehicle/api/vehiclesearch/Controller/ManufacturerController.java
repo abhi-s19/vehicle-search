@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,15 @@ public class ManufacturerController {
 		return new ResponseEntity<>(saveManufacturers,HttpStatus.OK);
 		//another way to return
 		//return ResponseEntity.status(HttpStatus.OK).body(saveManufacturers);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Manufacturer> getManufacturerBasedOnId(@PathVariable int id){
+		Manufacturer dbManufacturer = manufacturerService.getManufacturerById(id);
+		return new ResponseEntity<>(dbManufacturer,HttpStatus.OK);
+		//another way to return
+		//return ResponseEntity.ok(dbManufacturer);
+		
 	}
 
 }

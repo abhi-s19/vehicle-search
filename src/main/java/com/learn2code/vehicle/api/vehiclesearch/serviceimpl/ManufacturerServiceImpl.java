@@ -1,6 +1,7 @@
 package com.learn2code.vehicle.api.vehiclesearch.serviceimpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,14 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 	public List<Manufacturer> fetchAllManufacturers() {
 		// TODO Auto-generated method stub
 		return manufacturerDao.findAll();
+	}
+	@Override
+	public Manufacturer getManufacturerById(int id) {
+		// TODO Auto-generated method stub
+		 Optional<Manufacturer> dbManufacturerOptional = manufacturerDao.findById(id);
+		if(dbManufacturerOptional.isPresent())
+			return dbManufacturerOptional.get();
+		return null;
 	}
 
 }
