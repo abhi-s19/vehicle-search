@@ -18,7 +18,6 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 	@Override
 	public Manufacturer saveManufacturer(Manufacturer manufacturer) {
 		// TODO Auto-generated method stub
-		
 		return manufacturerDao.save(manufacturer);
 	}
 	@Override
