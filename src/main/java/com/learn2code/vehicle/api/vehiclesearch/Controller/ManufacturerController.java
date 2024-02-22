@@ -2,6 +2,8 @@ package com.learn2code.vehicle.api.vehiclesearch.Controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ public class ManufacturerController {
 	private ManufacturerService manufacturerService;
 	
 	@PostMapping
-	public ResponseEntity<Manufacturer> createManufacturerInDB(@RequestBody Manufacturer manufacturer){
+	public ResponseEntity<Manufacturer> createManufacturerInDB(@Valid@RequestBody Manufacturer manufacturer){
 		
 		Manufacturer dbRecord = manufacturerService.saveManufacturer(manufacturer);
 		return new ResponseEntity<>(dbRecord,HttpStatus.CREATED);

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "manufacturer")
@@ -15,6 +16,7 @@ public class Manufacturer {
 	@Column(name = "id")
 	private int id;
 	@Column(name = "manufacturer_name")
+	@NotBlank(message = "manufacturerName field is mandatory")
 	private String manufacturerName;
 	@Column(name = "country_of_origin")
 	private String countryOfOrigin;
