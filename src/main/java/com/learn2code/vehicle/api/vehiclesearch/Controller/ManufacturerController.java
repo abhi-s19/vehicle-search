@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,6 +65,18 @@ public class ManufacturerController {
 		}
 		Manufacturer updatedDBManufacturer = manufacturerService.updateManufacturer(dbManufacturer, updatedManufacturer);
 		return new ResponseEntity<>(updatedDBManufacturer,HttpStatus.ACCEPTED);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteManufacturerBasedOnId(@PathVariable int id) throws ManufacturerNotFoundException{
+		Manufacturer dbManufacturer = manufacturerService.getManufacturerById(id);
+		
+		if(dbManufacturer == null) {
+			throw new ManufacturerNotFoundException("No Manufacturer found for id:- "+id);
+		}
+		
+		manufacturerService.deleteManufacturerById(id);
+		return new ResponseEntity<>("Manufacturer Deleted from DB with id- "+id,HttpStatus.OK);
 	}
 
 }

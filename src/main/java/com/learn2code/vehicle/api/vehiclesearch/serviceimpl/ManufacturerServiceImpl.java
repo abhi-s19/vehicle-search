@@ -41,5 +41,10 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 		
 		return manufacturerDao.save(dbManufacturer);
 	}
+	@Override
+	public Void deleteManufacturerById(int id) {
+		manufacturerDao.deleteById(id);
+		return null;
+	}
 
 }
