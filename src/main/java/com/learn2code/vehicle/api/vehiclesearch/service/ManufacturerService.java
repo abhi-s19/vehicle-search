@@ -11,4 +11,5 @@ public interface ManufacturerService {
 	List<Manufacturer> fetchAllManufacturers();
 	Manufacturer getManufacturerById(int id);
 	Manufacturer updateManufacturer(Manufacturer dbManufacturer,Manufacturer updatedManufacturer);
+	Void deleteManufacturerById(int id);
 }
