@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +53,17 @@ public class ManufacturerController {
 		//another way to return
 		//return ResponseEntity.ok(dbManufacturer);
 		
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Manufacturer> updateManufacturerBasedOnId(@PathVariable int id,@Valid@RequestBody Manufacturer updatedManufacturer) throws Exception{
+		Manufacturer dbManufacturer = manufacturerService.getManufacturerById(id);
+		
+		if(dbManufacturer == null) {
+			throw new ManufacturerNotFoundException("No Manufacturer found for id:- "+id);
+		}
+		Manufacturer updatedDBManufacturer = manufacturerService.updateManufacturer(dbManufacturer, updatedManufacturer);
+		return new ResponseEntity<>(updatedDBManufacturer,HttpStatus.ACCEPTED);
 	}
 
 }

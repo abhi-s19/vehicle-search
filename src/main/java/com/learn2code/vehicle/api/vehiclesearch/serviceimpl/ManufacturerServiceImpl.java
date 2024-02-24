@@ -33,5 +33,13 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 			return dbManufacturerOptional.get();
 		return null;
 	}
+	@Override
+	public Manufacturer updateManufacturer(Manufacturer dbManufacturer,Manufacturer updatedManufacturer) {
+		// TODO Auto-generated method stub
+		dbManufacturer.setManufacturerName(updatedManufacturer.getManufacturerName());
+		dbManufacturer.setCountryOfOrigin(updatedManufacturer.getCountryOfOrigin());
+		
+		return manufacturerDao.save(dbManufacturer);
+	}
 
 }
