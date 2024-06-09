@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "models")
 public class Model {
@@ -24,12 +26,13 @@ public class Model {
 	@Column(name = "model_name")
 	private String modelName;
 	
-	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
 	@JoinTable(name = "model_trim",joinColumns = @JoinColumn(name="model_id", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name="trim_id",referencedColumnName = "id"))
 	private List<TrimType> trimTypeList;
 	
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Manufacturer manufacturer;
 	
 	

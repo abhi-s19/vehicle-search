@@ -1,8 +1,11 @@
 package com.learn2code.vehicle.api.vehiclesearch.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +32,14 @@ public class ModelTrimController {
 	public ResponseEntity<TrimType> createTrimType(@RequestBody TrimType trimType){
 		TrimType savedTrim =  modelTrimServce.saveTrimType(trimType);
 		return new ResponseEntity<TrimType>(savedTrim,HttpStatus.CREATED);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Model>> fetchAllModels(){
+		List<Model> dBModels = modelTrimServce.getAllModels();
+		if(dBModels.size()>0)
+			return new ResponseEntity<List<Model>>(dBModels,HttpStatus.OK);
+		
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 }
