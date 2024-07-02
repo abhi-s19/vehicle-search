@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
@@ -24,6 +25,7 @@ public class Model {
 	private int id;
 	
 	@Column(name = "model_name")
+	@NotBlank(message = "modelName field is mandatory")
 	private String modelName;
 	
 	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
@@ -31,8 +33,8 @@ public class Model {
 	inverseJoinColumns = @JoinColumn(name="trim_id",referencedColumnName = "id"))
 	private List<TrimType> trimTypeList;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	//@JsonIgnore
 	private Manufacturer manufacturer;
 	
 	

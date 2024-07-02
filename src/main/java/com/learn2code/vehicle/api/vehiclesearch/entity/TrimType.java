@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "trim_types")
@@ -18,6 +19,7 @@ public class TrimType {
 	private int id;
 	
 	@Column(name = "trim_type")
+	@NotBlank(message = "trimType field is mandatory")
 	private String trimType;
 	
 //	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
