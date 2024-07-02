@@ -2,15 +2,21 @@ package com.learn2code.vehicle.api.vehiclesearch.Controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.learn2code.vehicle.api.vehiclesearch.Exception.ModelNotFoundException;
+import com.learn2code.vehicle.api.vehiclesearch.Exception.TrimTypeNotFoundException;
 import com.learn2code.vehicle.api.vehiclesearch.entity.Model;
 import com.learn2code.vehicle.api.vehiclesearch.entity.TrimType;
 import com.learn2code.vehicle.api.vehiclesearch.service.ModelTrimService;
@@ -22,14 +28,14 @@ public class ModelTrimController {
 	private ModelTrimService modelTrimServce;
 	
 	@PostMapping
-	public ResponseEntity<Model> createModelTrim(@RequestBody Model model){
+	public ResponseEntity<Model> createModelTrim(@Valid@RequestBody Model model){
 		Model savedRecord = modelTrimServce.saveModel(model);
 		return new ResponseEntity<>(savedRecord,HttpStatus.CREATED);
 		
 	}
 	
 	@PostMapping("/trim-type")
-	public ResponseEntity<TrimType> createTrimType(@RequestBody TrimType trimType){
+	public ResponseEntity<TrimType> createTrimType(@Valid@RequestBody TrimType trimType){
 		TrimType savedTrim =  modelTrimServce.saveTrimType(trimType);
 		return new ResponseEntity<TrimType>(savedTrim,HttpStatus.CREATED);
 	}
@@ -42,4 +48,18 @@ public class ModelTrimController {
 		
 		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Model> updateModel(@PathVariable int id, @Valid@RequestBody Model model) throws ModelNotFoundException{
+		
+		return new ResponseEntity<Model>(modelTrimServce.ModifyModel(id, model),HttpStatus.OK);
+
+	}
+	
+	@PutMapping("/trim-type/{id}")
+	public ResponseEntity<TrimType> updateTrimType(@PathVariable int id,@Valid@RequestBody TrimType trimType) throws TrimTypeNotFoundException {
+		
+		return new ResponseEntity<TrimType>(modelTrimServce.ModifyTrimType(id, trimType),HttpStatus.OK);
+	}
+	
 }
