@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,4 +63,17 @@ public class ModelTrimController {
 		return new ResponseEntity<TrimType>(modelTrimServce.ModifyTrimType(id, trimType),HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteModel(@PathVariable int id) throws ModelNotFoundException{
+		modelTrimServce.deleteModelById(id);
+		return new ResponseEntity<String>("Model is deleted from db for Id-"+id,HttpStatus.OK);
+	}
+
+	//****this is not fully functional as TrimType entity does not know about the linking or foreign key model_trim 
+	//    table so we have to discuss with product owner so as of now it is commented  	
+//	@DeleteMapping("/trim-type/{id}")
+//	public ResponseEntity<String> deleteTrimType(@PathVariable int id) throws TrimTypeNotFoundException {
+//		modelTrimServce.deleteTrimType(id);
+//		return new ResponseEntity<String>("Trim-Type is deleted from db for Id-"+id,HttpStatus.OK);
+//	}
 }
