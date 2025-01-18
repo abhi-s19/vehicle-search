@@ -72,4 +72,31 @@ public class ModelTrimServiceImpl implements ModelTrimService{
 		return dbTrimTypeOptional.get();
 	}
 
+	@Override
+	public void deleteModelById(int id) throws ModelNotFoundException {
+		
+		Model dbModel = getModelById(id);
+		try {
+			modelDAO.delete(dbModel);
+		}
+		catch(Exception e) {
+			System.out.println("******unable to delete model, check db connection:- *************"+e.getMessage());
+			e.printStackTrace();
+		}	
+		
+	}
+
+	@Override
+	public void deleteTrimType(int id) throws TrimTypeNotFoundException {
+		TrimType dbTrim = getTrimTypeById(id);
+		try {
+			trimTypeDAO.delete(dbTrim);
+		}
+		catch(Exception e) {
+			System.out.println("******unable to delete trim type, check db connection:- *************"+e.getMessage());
+			e.printStackTrace();
+		}	
+		
+	}
+
 }
