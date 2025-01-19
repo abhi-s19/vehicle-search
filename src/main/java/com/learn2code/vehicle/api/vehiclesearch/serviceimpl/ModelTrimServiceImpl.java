@@ -6,10 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.learn2code.vehicle.api.vehiclesearch.Dao.ManufacturerDao;
 import com.learn2code.vehicle.api.vehiclesearch.Dao.ModelDAO;
 import com.learn2code.vehicle.api.vehiclesearch.Dao.TrimTypeDAO;
+import com.learn2code.vehicle.api.vehiclesearch.Exception.ManufacturerNotFoundException;
 import com.learn2code.vehicle.api.vehiclesearch.Exception.ModelNotFoundException;
 import com.learn2code.vehicle.api.vehiclesearch.Exception.TrimTypeNotFoundException;
+import com.learn2code.vehicle.api.vehiclesearch.entity.Manufacturer;
 import com.learn2code.vehicle.api.vehiclesearch.entity.Model;
 import com.learn2code.vehicle.api.vehiclesearch.entity.TrimType;
 import com.learn2code.vehicle.api.vehiclesearch.service.ModelTrimService;
@@ -22,6 +25,9 @@ public class ModelTrimServiceImpl implements ModelTrimService{
 	
 	@Autowired
 	private TrimTypeDAO trimTypeDAO;
+	
+	@Autowired
+	private ManufacturerDao manufacturerDao;
 	
 	@Override
 	public Model saveModel(Model model) {
@@ -97,6 +103,26 @@ public class ModelTrimServiceImpl implements ModelTrimService{
 			e.printStackTrace();
 		}	
 		
+	}
+
+	@Override
+	public List<Model> getModelsByManufacturerId(int manufacturerId) throws ManufacturerNotFoundException {
+		Optional<Manufacturer> dbManufacturer = manufacturerDao.findById(manufacturerId);
+		if(!dbManufacturer.isPresent()) {
+			throw new ManufacturerNotFoundException("Manufacturer not found in db with id: "+manufacturerId);
+		}
+		List<Model> dbModels = modelDAO.findByManufacturer(dbManufacturer.get());
+		return dbModels;
+	}
+
+	@Override
+	public List<Model> getModelsByManufacturerName(String name) throws ManufacturerNotFoundException {
+		Manufacturer dbManufacturer = manufacturerDao.findByManufacturerName(name);
+		if(dbManufacturer == null) {
+			throw new ManufacturerNotFoundException("Manufacturer not found in db with name: "+name);
+		}
+		List<Model> dbModels = modelDAO.findByManufacturer(dbManufacturer);
+		return dbModels;
 	}
 
 }
