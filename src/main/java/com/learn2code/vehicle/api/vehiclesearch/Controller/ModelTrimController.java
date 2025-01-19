@@ -76,4 +76,29 @@ public class ModelTrimController {
 //		modelTrimServce.deleteTrimType(id);
 //		return new ResponseEntity<String>("Trim-Type is deleted from db for Id-"+id,HttpStatus.OK);
 //	}
+	
+	@GetMapping("/manufacturer/{manufacturerId}")
+	public ResponseEntity<List<Model>> findAllModelsForManufacturer(@PathVariable int manufacturerId) throws Exception{
+		List<Model> dbModels = modelTrimServce.getModelsByManufacturerId(manufacturerId);
+		if(dbModels.size()>0) {
+			return new ResponseEntity<List<Model>>(dbModels,HttpStatus.OK);
+		}
+		else {
+			throw new ModelNotFoundException("Model not found in db with manufacturerId: "+manufacturerId);
+		}
+		
+	}
+	
+	@GetMapping("/manufacturer/name/{manufacturerName}")
+	public ResponseEntity<List<Model>> findAllModelsForManufacturer(@PathVariable String manufacturerName) throws Exception{
+		List<Model> dbModels = modelTrimServce.getModelsByManufacturerName(manufacturerName);
+		if(dbModels.size()>0) {
+			return new ResponseEntity<List<Model>>(dbModels,HttpStatus.OK);
+		}
+		else {
+			throw new ModelNotFoundException("Model not found in db with manufacturer name: "+manufacturerName);
+		}
+		
+	}
+	
 }
