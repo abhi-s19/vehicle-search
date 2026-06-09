@@ -41,5 +41,12 @@ public class VehicleSearchApiExceptions {
 		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND,ex.getMessage());
 		return new ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.NOT_FOUND);
 	}
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleAccountNotFound(AccountNotFoundException ex){
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.NOT_FOUND);
+    }
 	
 }
