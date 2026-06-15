@@ -1,5 +1,7 @@
 package com.learn2code.vehicle.api.vehiclesearch.security;
 
+import com.learn2code.vehicle.api.vehiclesearch.config.MyUserDetails;
+import com.learn2code.vehicle.api.vehiclesearch.config.MyUserDetailsService;
 import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +39,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
             username = jwtUtill.extractUsername(jwtToken);
             if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
                 UserDetails userDetails=userDetailsService.loadUserByUsername(username);
-                if(jwtUtill.validateToken(jwtToken,userDetails)){
+                if(jwtUtill.validateToken(jwtToken,userDetails) && userDetails.isEnabled()){
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                             = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
