@@ -31,7 +31,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+
         //http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
         http.authorizeRequests().
                 antMatchers(HttpMethod.POST,"/api/v1/manufacturers").hasRole("ADMIN").
@@ -40,6 +40,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 anyRequest().permitAll().and().httpBasic().
                 and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable();
     }
 
     @Bean
